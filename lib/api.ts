@@ -1,6 +1,6 @@
 // lib/api.ts
 
-import axios from "axios";
+import axios from 'axios';
 
 export type Note = {
   id: string;
@@ -20,6 +20,11 @@ export type NoteListResponse = {
 axios.defaults.baseURL = 'https://next-docs-api.onrender.com';
 
 export const getNotes = async () => {
-  const res = await axios.get<NoteListResponse>("/notes");
+  const res = await axios.get<NoteListResponse>('/notes');
+  return res.data;
+};
+
+export const getSingleNote = async (id: string) => {
+  const res = await axios.get<Note>(`/notes/${id}`);
   return res.data;
 };
