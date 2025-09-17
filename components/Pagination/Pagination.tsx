@@ -1,0 +1,1 @@
+// judging by styles, its a proper pagination, with page number buttons

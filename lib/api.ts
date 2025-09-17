@@ -28,3 +28,5 @@ export const getSingleNote = async (id: string) => {
   const res = await axios.get<Note>(`/notes/${id}`);
   return res.data;
 };
+
+// add functions for creating, updating and deleting notes

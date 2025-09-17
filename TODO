@@ -1,0 +1,20 @@
+Home page
+Notes page
+- Notes list
+    - Add note button
+        - Note form
+    - Search box
+    - Note item
+        - Link to note details
+    - Pagination
+Note details page
+    - Note update form
+
+- Delete note
+- Where Modal?
+- Move axios base url to env
+- Move types to types/note.ts
+- Add proper error and loading handlers
+- Check vercel docs about deploy
+- Possibly add meta to other pages?
+- About and profile pages?
