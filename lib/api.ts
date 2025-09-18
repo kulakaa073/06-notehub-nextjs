@@ -1,13 +1,19 @@
-// lib/api.ts
 import { Note, NoteListResponse } from '@/types/Note';
 
 import axios from 'axios';
 
 axios.defaults.baseURL = 'https://next-docs-api.onrender.com';
 
-export const getNotes = async () => {
-  const res = await axios.get<NoteListResponse>('/notes');
-  return res.data;
+export const getNotes = async ({ currentPage }: { currentPage: number }) => {
+  try {
+    const res = await axios.get<NoteListResponse>('/notes', {
+      params: { page: currentPage },
+    });
+    return res.data;
+  } catch (error) {
+    console.error('Error fetching notes:', error);
+    throw error;
+  }
 };
 
 export const getSingleNote = async (id: string) => {
