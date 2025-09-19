@@ -1,13 +1,19 @@
 import { Note, NoteListResponse } from '@/types/Note';
+import { Category } from '@/types/Category';
 
 import axios from 'axios';
+import { GetNotesRequestParams } from '@/types/Api';
 
 axios.defaults.baseURL = 'https://next-docs-api.onrender.com';
 
-export const getNotes = async ({ currentPage }: { currentPage: number }) => {
+export const getNotes = async ({
+  page,
+  title,
+  categoryId,
+}: GetNotesRequestParams) => {
   try {
     const res = await axios.get<NoteListResponse>('/notes', {
-      params: { page: currentPage },
+      params: { page, title, categoryId },
     });
     return res.data;
   } catch (error) {
@@ -22,7 +28,7 @@ export const getSingleNote = async (id: string) => {
 };
 
 export const getCategories = async () => {
-  const res = await axios.get('/categories');
+  const res = await axios.get<Category[]>('/categories');
   return res.data;
 };
 

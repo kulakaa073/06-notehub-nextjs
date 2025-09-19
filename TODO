@@ -6,14 +6,14 @@ Notes page
     - Search box
     - Note item
         - Link to note details
-    - Pagination
+    - Pagination +
 Note details page
     - Note update form
 
 - Delete note
 - Where Modal?
 - Move axios base url to env
-- Move types to types/note.ts
+- Move types to types/note.ts +
 - Add proper error and loading handlers
 - Check vercel docs about deploy
 - Possibly add meta to other pages?
