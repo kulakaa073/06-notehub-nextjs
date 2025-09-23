@@ -5,7 +5,7 @@ type Props = {
   reset: () => void;
 };
 
-export const Error = ({ error, reset }: Props) => {
+const Error = ({ error, reset }: Props) => {
   return (
     <div>
       <p>Could not fetch note details. {error.message}</p>
@@ -13,3 +13,5 @@ export const Error = ({ error, reset }: Props) => {
     </div>
   );
 };
+
+export default Error;
