@@ -1,44 +1,43 @@
-import NoteList from '@/components/NoteList/NoteList';
-import Pagination from '@/components/Pagination/Pagination';
+import {
+  QueryClient,
+  dehydrate,
+  HydrationBoundary,
+} from '@tanstack/react-query';
 import { getNotes, getCategories } from '@/lib/api';
-import { Note } from '@/types/Note';
+import { getCategoryIdByName } from '@/utils/category';
+import NotesClient from './Notes.client';
 
-import { getCategoryIdByName, getCategoryNameById } from '@/utils/category';
-import SearchBox from '@/components/SearchBox/SearchBox';
-
-interface NotesProps {
+interface NotesPageProps {
   searchParams: { [key: string]: string };
 }
 
-const Notes = async ({ searchParams }: NotesProps) => {
-  const resSearchParams = await searchParams;
-  const { page, query, category } = resSearchParams;
+const NotesPage = async ({ searchParams }: NotesPageProps) => {
+  const resolvedSearchParams = await searchParams;
+  const { page, query, category } = resolvedSearchParams;
   const currentPage = Number(page) || 1;
-  const perPage = 10;
 
-  const categoriesRes = await getCategories();
-  const notesRes = await getNotes({
-    page: currentPage,
-    title: query,
-    categoryId: getCategoryIdByName(category, await categoriesRes),
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ['categories'],
+    queryFn: getCategories,
   });
-  const notesCount = notesRes.total;
 
-  const notes = notesRes.notes.map((note: Note) => {
-    const category = getCategoryNameById(note.categoryId, categoriesRes);
-    return { ...note, category };
+  await queryClient.prefetchQuery({
+    queryKey: ['notes', { page: currentPage, query, category }],
+    queryFn: () =>
+      getNotes({
+        page: currentPage,
+        title: query,
+        categoryId: getCategoryIdByName(category, []), // categories fetched in client too
+      }),
   });
 
   return (
-    <section>
-      <h1>Notes List</h1>
-      <SearchBox categories={categoriesRes} />
-      {notes?.length > 0 && <NoteList notes={notes} />}
-      {notesCount > perPage && (
-        <Pagination total={notesCount} searchParams={resSearchParams} />
-      )}
-    </section>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <NotesClient searchParams={resolvedSearchParams} />
+    </HydrationBoundary>
   );
 };
 
-export default Notes;
+export default NotesPage;

@@ -1,20 +1,24 @@
 // components/NoteList/NoteList.tsx
 
-import { FormatedNote } from '@/types/Note';
+import { FormatedNote } from '@/types/note';
 import NoteItem from '../NoteItem/NoteItem';
 import css from './NoteList.module.css';
 
 type Props = {
   notes: FormatedNote[];
+  isFetching?: boolean;
 };
 
-const NoteList = ({ notes }: Props) => {
+const NoteList = ({ notes, isFetching }: Props) => {
   return (
-    <ul className={css.list}>
-      {notes.map((note) => (
-        <NoteItem key={note.id} item={note} />
-      ))}
-    </ul>
+    <div>
+      {isFetching && <div className={css.overlay}>Loading new page…</div>}
+      <ul className={css.list}>
+        {notes.map((note) => (
+          <NoteItem key={note.id} item={note} />
+        ))}
+      </ul>
+    </div>
   );
 };
 

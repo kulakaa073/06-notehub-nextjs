@@ -3,16 +3,17 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useDebounce } from '@/hooks/useDebounce';
-import { Category } from '@/types/Category';
+import { Category } from '@/types/category';
 import Select, { SingleValue, ActionMeta } from 'react-select';
-import { CategoryOption } from '@/types/Category';
+import { CategoryOption } from '@/types/category';
 import css from './SearchBox.module.css';
 
 interface SearchBoxProps {
   categories: Category[];
+  isFetching?: boolean;
 }
 
-const SearchBox = ({ categories }: SearchBoxProps) => {
+const SearchBox = ({ categories, isFetching }: SearchBoxProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -59,7 +60,7 @@ const SearchBox = ({ categories }: SearchBoxProps) => {
       params.delete('category');
     }
     params.delete('page');
-    router.push(`?${params.toString()}`);
+    router.replace(`?${params.toString()}`);
   };
 
   useEffect(() => {
@@ -75,7 +76,7 @@ const SearchBox = ({ categories }: SearchBoxProps) => {
     params.delete('page');
     lastUrlQuery.current = debouncedQuery;
     isUserInput.current = false;
-    router.push(`?${params.toString()}`);
+    router.replace(`?${params.toString()}`);
   }, [debouncedQuery, router, searchParams]);
 
   return (
@@ -97,6 +98,7 @@ const SearchBox = ({ categories }: SearchBoxProps) => {
         className={css.input}
         instanceId="category-select"
       />
+      {isFetching && <div className={css.loading}>Loading...</div>}
     </div>
   );
 };

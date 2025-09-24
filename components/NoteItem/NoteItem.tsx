@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FormatedNote } from '@/types/Note';
+import { FormatedNote } from '@/types/note';
 import css from './NoteItem.module.css';
 
 type Props = {

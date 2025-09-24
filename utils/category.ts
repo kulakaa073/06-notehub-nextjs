@@ -1,4 +1,4 @@
-import { Category } from '@/types/Category';
+import { Category } from '@/types/category';
 
 export const getCategoryNameById = (id: string, categories: Category[]) => {
   const category = categories.find((category) => category.id === id);
