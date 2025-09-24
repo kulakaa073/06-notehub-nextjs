@@ -1,11 +1,11 @@
 // components/NoteList/NoteList.tsx
 
-import { FormatedNote } from '@/types/note';
+import { FormattedNote } from '@/types/note';
 import NoteItem from '../NoteItem/NoteItem';
 import css from './NoteList.module.css';
 
 type Props = {
-  notes: FormatedNote[];
+  notes: FormattedNote[];
   isFetching?: boolean;
 };
 
