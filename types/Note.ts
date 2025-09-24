@@ -13,6 +13,6 @@ export type NoteListResponse = {
   total: number;
 };
 
-export interface FormatedNote extends Omit<Note, 'categoryId'> {
+export interface FormatedNote extends Note {
   category: string;
 }

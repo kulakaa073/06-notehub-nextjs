@@ -7,6 +7,7 @@ import { getCategoryIdByName, getCategoryNameById } from '@/utils/category';
 import NoteList from '@/components/NoteList/NoteList';
 import Pagination from '@/components/Pagination/Pagination';
 import SearchBox from '@/components/SearchBox/SearchBox';
+import { FormatedNote } from '@/types/note';
 
 interface NotesClientProps {
   searchParams: { [key: string]: string };
@@ -41,7 +42,7 @@ const NotesClient = ({ searchParams }: NotesClientProps) => {
   if (isLoading) return <p>Loading notes...</p>;
   if (!notesRes) return <p>No notes found.</p>;
 
-  const formattedNotes = notesRes.notes.map((note) => ({
+  const formattedNotes: FormatedNote[] = notesRes.notes.map((note) => ({
     ...note,
     category: getCategoryNameById(note.categoryId, categories),
   }));

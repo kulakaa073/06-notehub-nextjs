@@ -2,7 +2,7 @@ import { Note, NoteListResponse } from '@/types/note';
 import { Category } from '@/types/category';
 
 import axios from 'axios';
-import { GetNotesRequestParams } from '@/types/pi';
+import { GetNotesRequestParams } from '@/types/api';
 
 axios.defaults.baseURL = 'https://next-docs-api.onrender.com';
 
