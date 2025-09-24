@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import { FormatedNote } from '@/types/note';
+import { FormattedNote } from '@/types/note';
 import css from './NoteItem.module.css';
 
 type Props = {
-  item: FormatedNote;
+  item: FormattedNote;
 };
 
 const NoteItem = ({ item }: Props) => {
